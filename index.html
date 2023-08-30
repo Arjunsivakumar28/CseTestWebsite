@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- CSS file link -->
+  <link type="text/css" rel="stylesheet" href="./style.css">
+
+  <!-- Bootstrap CSS and Javascript links -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="head d-flex bg-light position-relative z-3 shadow">
+
+      <!-- Offcanvas Navbar -->
+      <nav class="navbar navbar-expand-xl bg-light navbar-light">
+        <div class="con-cus container-fluid d-flex">
+
+          <!-- Navbar Brand with image and company title -->
+          <a href="#" class="navbar-brand mr-auto mr-lg-0 d-flex">
+            <img src="./cse.jpeg" alt="logo" class="cse-logo img-fluid mx-2 d-block" width="40px">
+            <span class="comp-title px-2 fs-3 fw-normal">CSE Payments</span>
+          </a>
+
+          <!-- Navbar Toggler -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#navbarOffcanvas"
+            aria-controls="navbarOffcanvas" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <!-- Navbar Items -->
+          <div class="offcanvas offcanvas-start bg-info" id="navbarOffcanvas" aria-labelledby="offcanvas-navbar">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title text-light" id="offcanvas-navbar">Menu</h5>
+              <button type="button" class="btn-close btn-close-white text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+
+              <!-- media 991px and below search-->
+              <div class="search-bar-small input-group mb-3 pe-5">
+                <input type="text" class="form-control" placeholder="Search">
+                <div class="input-group-append me-5">
+                  <button class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-search" viewBox="0 0 16 16">
+                      <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Nav Bar Items -->
+              <ul class="navbar-nav justify-content-end flex-grow-1 mr-auto">
+                <a class="nav-item nav-link active" aria-current="page" href="#">Dashboard</a>
+                <!-- Dropdown Menu -->
+                <li class="dropdown">
+                  <a class="nav-item nav-link dropdown-toggle" href="#" role="link" id="dropdownMenuLink"
+                    data-bs-toggle="dropdown" aria-expanded="false">
+                    Learn
+                  </a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Starting Guide</a></li>
+                    <li><a class="dropdown-item" href="#">Q&A</a></li>
+                    <li><a class="dropdown-item" href="#">Blog</a></li>
+                  </ul>
+                </li>
+                <a class="nav-item nav-link" href="#">Contact</a>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Login and Signup Buttons -->
+      <a class="login btn btn-outline-warning mx-2 my-3 " href="./login.html">Log In</a>
+      <a class="signup btn btn-outline-warning mx-2 my-3 " href="./signup.html">Sign Up</a>
+
+      <!-- Search Bar -->
+      <!-- media 992px and above -->
+      <form class="search-bar form-outline ms-auto my-3 ">
+        <input class="form-control mx-md-2 w-100 border" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
+          </svg>
+        </button>
+      </form>
+
+    </div>
+  </header>
+  <!-- Main Content -->
+  <main role="main" class="main">
+
+    <!-- Main head content -->
+    <div class="row main-head p-lg-5 mb-xl-4 bg-info text-black justify-content-around position-relative z-1">
+
+      <!-- Main Head Text -->
+      <div class="main-head-text col-lg-5 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-1 p-3 text-center">Welcome to CSE Payments</h1>
+        <p class="fs-4 mb-1 pt-2 pb-4 text-center">Description or Tag</p>
+
+        <!-- Main Head link -->
+        <div class="head-links d-flex flex-row">
+          <a href="./login.html" class="btn btn-primary btn-lg mb-5 me-3">Log In</a>
+          <a href="./signup.html" class="btn btn-primary btn-lg mb-5">Sign Up</a>
+        </div>
+      </div>
+      <!-- Main Head Image -->
+      <div class="main-head-img col-lg-5 d-flex flex-column justify-content-center align-items-center">
+        <img src="./main_phone_img.webp" alt="phone" class="img-fluid mx-auto d-block position-relative z-3">
+      </div>
+
+      <!-- <div class="main-head-img">
+        <img src="./wave_cut.png" alt="wave" class="img-fluid mx-auto d-block position-absolute z-2">
+      </div> -->
+
+    </div>
+
+    <!-- Main Body Content Sections-->
+    <!-- Main Body Sec-1 -->
+    <div class="main-body-sec-1 p-lg-5 mb-xl-4 z-2 text-black d-flex flex-row-reverse justify-content-around">
+
+      <!-- Main Body Sec-1 Text -->
+      <div class="main-body-sec-1-text col-lg-5 d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-1 p-4 text-center">Welcome to CSE Payments</h1>
+        <p class="fs-4 mb-2 p-4 text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+          voluptatum.</p>
+        <a href="./index.html" class="btn btn-primary btn-lg m-4">Learn More</a>
+      </div>
+
+      <!-- Main Body Sec-1 Image -->
+      <div class="main-body-sec-1-img col-lg-5 d-flex flex-column justify-content-center align-items-center">
+        <img src="./main_phone_img.webp" alt="hero" class="img-fluid mx-auto d-block">
+      </div>
+    </div>
+
+    <!-- Main Body Sec-2 -->
+    <div class="main-body-sec-2 bg-light">
+      <div class=" container p-5 m-5 z-2 text-black">
+
+        <!-- Main Body Sec-2 Text -->
+        <div class="main-body-sec-2-text d-flex flex-column text-center">
+          <h1 class="display-1 p-4 text-center">Look At Our Options!</h1>
+          <p class="fs-4 mb-2 p-4 text-center">We have plenty of options</p>
+          <!-- <a href="./index.html" class="btn btn-primary btn-lg m-4">Learn More</a> -->
+        </div>
+
+        <!-- Main Body Sec-2 Cards -->
+        <div class="main-body-sec-2-cards d-flex justify-content-center align-items-center">
+          <div class="card mx-2" style="width: 18rem;">
+            <img src="./icon_home_budget-01.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Option 1</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card mx-2" style="width: 18rem;">
+            <img src="./icon_home_emoji-01.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Option 2</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+
+          <div class="card mx-2" style="width: 18rem;">
+            <img src="./icon_home_phone-01.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Option 3</h5>
+              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- footer -->
+  <!-- <footer class="footer">
+    <div class="secondary-footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-1">
+          </div>
+          <div class="col-xl-8">
+            <div class="navbar">
+              <ul id="menu-footer-menu" class="footer-menu">
+                <li id="menu-item-18124"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18124"><a
+                    href="https://www.computersolutionseast.com/contact-us/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Contact Us</a></li>
+                <li id="menu-item-18126"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18126"><a
+                    href="https://www.computersolutionseast.com/terms-of-use/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Terms of use</a></li>
+                <li id="menu-item-18127"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18127"><a
+                    href="https://www.computersolutionseast.com/privacy/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Privacy Policy</a></li>
+                <li id="menu-item-18125"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18125"><a
+                    href="https://www.computersolutionseast.com/accessibility/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Accessibility</a></li>
+                <li id="menu-item-18129"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18129"><a
+                    href="https://www.computersolutionseast.com/cookie-preferences/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Cookie Preferences</a></li>
+                <li id="menu-item-18128"
+                  class="nav-item menu-item-type-post_type menu-item-object-page menu-item-18128"><a
+                    href="https://www.computersolutionseast.com/site-map/" class="link-body-emphasis link-offset-2 link-opacity-75-hover">Site Map</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1"></div>
+          <div class="col-md-11"> <img
+              src="https://www.computersolutionseast.com/wp-content/themes/computereastsolution/assets/img/cse.svg"
+              alt="logo1" class="img-fluid footer-bottom-logo"> <span class="copy">© Copyright 2023. All rights
+              reserved.</span></div>
+        </div>
+      </div>
+    </div> -->
+  <!-- </footer> -->
+</body>
+
+</html>
