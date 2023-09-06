@@ -1,7 +1,6 @@
 console.log("Works!");
 
-// Path: test_main.js
-
+// Password show and hide function
 function password_show_hide(ele) {
     console.log("click works")
     console.log("element check : ", ele.children);
@@ -18,9 +17,4 @@ function password_show_hide(ele) {
         show_eye.style.display = "block";
         hide_eye.style.display = "none";
     }
-
-
-
-
-    
 }

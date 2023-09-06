@@ -1,0 +1,15 @@
+h1 {
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Qwitcher Grypen', cursive; */
+}
+
+.accordion-button::after {
+    margin-left: 1rem !important;
+}
+
+.nothing {
+    padding-left: 1rem !important;
+    padding-right: 1.5rem !important;
+    width: 30px !important;
+}
+
