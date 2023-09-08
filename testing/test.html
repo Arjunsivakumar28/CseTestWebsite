@@ -11,12 +11,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
         crossorigin="anonymous"></script>
-    <!-- Popoer change full backcgourd screen -->
-    <!-- <style>
-        #mypopover::backdrop {
-            background-color: orange;
-        }
-    </style> -->
+
 
     <!-- Main css -->
     <link rel="stylesheet" href="./test_style.css">
@@ -24,173 +19,11 @@
 </head>
 
 <body>
-    <!-- Popoer change full backcgourd screen -->
-    <!-- <button popovertarget="mypopover">Toggle the popover</button>
-    <div id="mypopover" popover>Popover content</div> -->
-
-    <div class="text-center">
-        <a class="btn btn-primary my-3" data-bs-toggle="modal" role="button" data-bs-target="#login-modal">Launch
-            Modal LogIn/Register</a>
+    
+    <div class="row">
+        <div class="col-3 h-100 bg-info">rvg3urvqkurjv</div>
+        <div class="col-9 h-100 bg-success">eowchiqy3rbvhgk</div>
     </div>
-
-    <div class="modal fade" id="login-modal" tabindex="-1" aria-labelledby="login-modal-label" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <div class="container d-flex justify-content-center">
-                        <nav class="d-flex justify-content-between">
-                            <a href="#" class="navbar-brand d-flex align-items-center me-3">
-                                <img src="./cse.jpeg" alt="logo" class="cse-logo img-fluid mx-2 d-block" height="40px">
-                                <span class="comp-title px-2 fs-3 fw-normal">CSE Payments</span>
-                            </a>
-
-                            <div class="nav nav-pills" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
-                                    aria-selected="true">Login</button>
-                                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
-                                    data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile"
-                                    aria-selected="false">Signup</button>
-                            </div>
-                        </nav>
-                    </div>
-                    <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="close"></button>
-                </div>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane px-2 pt-3 pb-2 fade show active" id="nav-home" role="tabpanel"
-                        aria-labelledby="nav-home-tab">
-                        <form>
-                            <h5 class="ms-3">Login</h5>
-                            <div class="modal-body">
-                                <label class="form-label mb-2" for="email-login-input">Email Address</label>
-                                <input class="form-control mb-2" type="email" id="email-login-input"
-                                    placeholder="enter email" required minlength="5" maxlength="40">
-                                <label class="form-label mb-2" for="password-login-input">Password</label>
-                                <div class="input-group-append d-flex mb-3">
-                                    <input class="form-control" type="password" id="password-login-input"
-                                        placeholder="enter password" onpaste="return false" ondrop="return false"
-                                        autocomplete="off" required>
-                                    <a role="button" class="input-group-text" onclick="password_show_hide(this);">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"
-                                            id="show_eye">
-                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                            <path
-                                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-slash-fill d-none" viewBox="0 0 16 16"
-                                            id="hide_eye">
-                                            <path
-                                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
-                                            <path
-                                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                                <input class="form-check-input" type="checkbox" value="" id="remember-check">
-                                <label class="form-check-label" for="remember-check">
-                                    Remember Me
-                                </label>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="container d-flex  justify-content-between align-items-center">
-                                    <button class="btn btn-outline-success" type="submit">Login</button>
-                                    <div class="d-flex">
-                                        Forgot
-                                        <a href="#" class="ms-1" data-bs-target="#forgot_password_modal"
-                                            data-bs-toggle="modal" data-bs-dismiss="modal">password?</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="tab-pane fade px-2 pt-3 pb-2" id="nav-profile" role="tabpanel"
-                        aria-labelledby="nav-profile-tab">
-                        <form>
-                            <h5 class="ms-3 mb-1">Signup</h5>
-                            <div class="modal-body">
-                                <label class="form-label mb-2" for="email-login-input">Email Address</label>
-                                <input class="form-control mb-2" type="email" id="email-login-input"
-                                    placeholder="enter email" minlength="5" maxlength="40" required>
-                                <label class="form-label mb-2" for="password-login-input">Password</label>
-                                <div class="input-group-append d-flex mb-3">
-                                    <input class="form-control" type="password" id="password-login-input"
-                                        placeholder="enter password" onpaste="return false" ondrop="return false"
-                                        autocomplete="off" required>
-                                    <a role="button" class="input-group-text" onclick="password_show_hide(this);">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"
-                                            id="show_eye">
-                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                            <path
-                                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-slash-fill d-none" viewBox="0 0 16 16"
-                                            id="hide_eye">
-                                            <path
-                                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
-                                            <path
-                                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                                <label class="form-label mb-2" for="password-login-input-confirm">Confirm
-                                    Password</label>
-                                <div class="input-group-append d-flex mb-3">
-                                    <input class="form-control" type="password" id="password-login-input-confirm"
-                                        placeholder="confirm password" onpaste="return false" ondrop="return false"
-                                        autocomplete="off" required>
-                                    <a role="button" class="input-group-text" onclick="password_show_hide(this);">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16"
-                                            id="show_eye">
-                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z" />
-                                            <path
-                                                d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
-                                        </svg>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                            fill="currentColor" class="bi bi-eye-slash-fill d-none" viewBox="0 0 16 16"
-                                            id="hide_eye">
-                                            <path
-                                                d="m10.79 12.912-1.614-1.615a3.5 3.5 0 0 1-4.474-4.474l-2.06-2.06C.938 6.278 0 8 0 8s3 5.5 8 5.5a7.029 7.029 0 0 0 2.79-.588zM5.21 3.088A7.028 7.028 0 0 1 8 2.5c5 0 8 5.5 8 5.5s-.939 1.721-2.641 3.238l-2.062-2.062a3.5 3.5 0 0 0-4.474-4.474L5.21 3.089z" />
-                                            <path
-                                                d="M5.525 7.646a2.5 2.5 0 0 0 2.829 2.829l-2.83-2.829zm4.95.708-2.829-2.83a2.5 2.5 0 0 1 2.829 2.829zm3.171 6-12-12 .708-.708 12 12-.708.708z" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="container d-flex  justify-content-between align-items-center">
-                                    <button class="btn btn-outline-success" type="submit">Signup</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="forgot_password_modal" tabindex="-1" aria-labelledby="forgot_password_modal_label"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form>
-                    <div class="modal-body">
-                        <label class="form-label" for="link_email">Input your Email</label>
-                        <input class="form-control" id="link_email" type="email" placeholder="email" minlength="5"
-                            maxlength="40" required>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-success" type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="./test_main.js"></script>
 
 </body>
 
