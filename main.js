@@ -1,5 +1,3 @@
-
-
 console.log("App Works!");
 
 // Password show and hide function
