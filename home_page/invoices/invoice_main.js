@@ -162,20 +162,36 @@ console.log("table arr : ", table_contents);
 
 // --------------------------------------------------------------------------------------------------------------
 
-function displayRows(table_contents) {
+
+let statusTable = table_contents.filter((obj) => obj.status == "Not Due");
+let dateTable = JSON.parse(JSON.stringify(table_contents));
+let filterTable = JSON.parse(JSON.stringify(statusTable));
+
+let displayArray = JSON.parse(JSON.stringify(filterTable));
+
+let currPage = 1;
+let pageSize = 4;
+
+function displayRows() {
 
     let Html_rows = "";
 
-    for (row_obj of table_contents) {
+    for (let idx in displayArray) {
 
-        let recur_sign = "";
+        let start = (currPage - 1) * pageSize;
 
-        let status_sign = "";
+        let end = currPage * pageSize;
 
-        let pay_btn = "";
+        if (idx >= start && idx < end) {
 
-        if (row_obj.recurring == true) {
-            recur_sign = `
+            let recur_sign = "";
+
+            let status_sign = "";
+
+            let pay_btn;
+
+            if (displayArray[idx].recurring) {
+                recur_sign = `
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
             viewBox="0 0 30 30" id="recur-sign">
             <path
@@ -183,18 +199,18 @@ function displayRows(table_contents) {
             </path>
         </svg>
         `
-        } else {
-            recur_sign = `
+            } else {
+                recur_sign = `
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
             class="bi bi-slash-circle-fill" viewBox="0 0 16 16" id="no-recur-sign">
             <path
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z" />
         </svg>
         `
-        }
+            }
 
-        if (row_obj.status == "Paid") {
-            status_sign = `
+            if (displayArray[idx].status == "Paid") {
+                status_sign = `
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
                 viewBox="0 0 30 30" style="fill:#40C057;">
                 <path
@@ -202,8 +218,8 @@ function displayRows(table_contents) {
                 </path>
             </svg>
             `
-        } else if (row_obj.status == "Over Due") {
-            status_sign = `
+            } else if (displayArray[idx].status == "Over Due") {
+                status_sign = `
             <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
                 viewBox="0 0 48 48">
                 <path fill="#f44336"
@@ -217,8 +233,8 @@ function displayRows(table_contents) {
                 </path>
             </svg>
             `
-        } else if (row_obj.status == "Not Due") {
-            status_sign = `
+            } else if (displayArray[idx].status == "Not Due") {
+                status_sign = `
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                 class="bi bi-exclamation-circle" viewBox="0 0 16 16">
                 <path
@@ -227,43 +243,43 @@ function displayRows(table_contents) {
                     d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z" />
             </svg>
             `
-        }
+            }
 
-        if (row_obj.status == "Paid") {
-            pay_btn = "";
-        } else {
-            pay_btn = `
+            if (displayArray[idx].status == "Paid") {
+                pay_btn = "";
+            } else {
+                pay_btn = `
             <button class=" btn btn-outline-success">Pay</button>
             `;
-        }
+            }
 
-        Html_rows += `
+            Html_rows += `
         <tr class="align-middle">
             <td>
                 <div class="d-flex justify-content-center align-items-center my-2"><input
                         class="form-check-input" type="checkbox" value="" id="row-check"
-                        aria-label="row-check" style="padding: .8rem;"></div>
+                        aria-label="row-check" style="padding: .8rem;" onchange="checkboxAction(this)"></div>
             </td>
             <td>
                 <div class="d-flex justify-content-center align-items-center my-2">` + recur_sign + `
                 </div>
             </td>
             <td>
-                <div class="d-flex justify-content-center align-items-center my-2">` + row_obj.date + `</div>
+                <div class="d-flex justify-content-center align-items-center my-2">` + displayArray[idx].date + `</div>
             </td>
             <td>
-                <div class="d-flex justify-content-center align-items-center my-2"> INV`+ row_obj.invoiceNo + `</div>
+                <div class="d-flex justify-content-center align-items-center my-2"> INV`+ displayArray[idx].invoiceNo + `</div>
             </td>
             <td>
-                <div class="d-flex justify-content-center align-items-center my-2">$`+ row_obj.amount + `</div>
+                <div class="d-flex justify-content-center align-items-center my-2">$`+ displayArray[idx].amount + `</div>
             </td>
             <td>
-                <div class="d-flex justify-content-center align-items-center my-2">`+ row_obj.dueDate + `</div>
+                <div class="d-flex justify-content-center align-items-center my-2">`+ displayArray[idx].dueDate + `</div>
             </td>
             <td>
                 <div class="d-flex justify-content-center align-items-center my-2">
                     `+ status_sign + `
-                    <span class="ms-2">`+ row_obj.status + `</span>
+                    <span class="ms-2">`+ displayArray[idx].status + `</span>
                 </div>
             </td>
             <td>
@@ -279,9 +295,10 @@ function displayRows(table_contents) {
             </td>
         </tr>
         `
-    }
+        }
 
-    document.getElementById("invoice-table-body").innerHTML = Html_rows;
+        document.getElementById("invoice-table-body").innerHTML = Html_rows;
+    }
 }
 
 // --------------------------------------------------------------------------------------------------------------
@@ -327,12 +344,6 @@ function sidebar_open_close(ele) {
 
 // --------------------------------------------------------------------------------------------------------------
 
-let statusTable = table_contents.filter((obj) => obj.status == "Not Due");
-let dateTable = JSON.parse(JSON.stringify(table_contents));
-let filterTable = JSON.parse(JSON.stringify(statusTable));
-
-let displayArray = JSON.parse(JSON.stringify(filterTable));
-
 function compareArrays(sObj) {
     for (let dObj of dateTable) {
         if (dObj.invoiceNo == sObj.invoiceNo) {
@@ -344,13 +355,21 @@ function compareArrays(sObj) {
 }
 
 // Display the default table
-displayRows(displayArray);
+displayRows();
 
 // --------------------------------------------------------------------------------------------------------------
 
-function statusChange() {
+function statusChange(ele) {
 
     let select = document.getElementById("invoice-type-filter");
+
+    if (ele.id == "over-due-bar") {
+        select.options.selectedIndex = 1;
+    } else if (ele.id == "not-due-bar") {
+        select.options.selectedIndex = 0;
+    } else if (ele.id == "paid-bar") {
+        select.options.selectedIndex = 2;
+    }
 
     switch (select.options.selectedIndex) {
 
@@ -373,7 +392,7 @@ function statusChange() {
 
             statusTable = JSON.parse(JSON.stringify(table_contents));
             displayArray = table_contents
-            displayRows(displayArray);
+            displayRows();
             break;
 
         default:
@@ -391,9 +410,9 @@ function statusChange() {
 
     console.log("Status table status check : ", statusTable);
 
-    displayArray = filterTable
+    displayArray = JSON.parse(JSON.stringify(filterTable));
 
-    displayRows(displayArray);
+    displayRows();
 
 }
 
@@ -426,7 +445,7 @@ function dateChange() {
 
             dateTable = JSON.parse(JSON.stringify(table_contents));
             displayArray = table_contents
-            displayRows(displayArray);
+            displayRows();
             break;
 
         case 1:
@@ -480,9 +499,9 @@ function dateChange() {
 
     console.log("date table status check : ", dateTable);
 
-    displayArray = filterTable
+    displayArray = JSON.parse(JSON.stringify(filterTable));
 
-    displayRows(displayArray);
+    displayRows();
 
 }
 
@@ -510,11 +529,24 @@ checkSearch.addEventListener("keyup", function () {
 
     displayArray = searchTableContents;
 
-    displayRows(displayArray);
+    displayRows();
 
 })
 
 // --------------------------------------------------------------------------------------------------------------
+
+function checkboxAction(ele) {
+
+    if (ele.checked) {
+        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg: #d5d5d5");
+    } else {
+        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg:");
+    }
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
 
 function selectCheckboxClick(ele) {
 
@@ -522,9 +554,22 @@ function selectCheckboxClick(ele) {
 
     console.log("table check : ", tableRows[0]);
 
-    for (let i = 0; i < tableRows.length; i++) {
-        tableRows[i].children[0].children[0].children[0].toggleAttribute("checked");
-        console.log("table row check : ", tableRows[i].children[0].children[0].children[0]);
+    let boxChecked = true;
+
+    for (let row of tableRows) {
+
+        if (!row.children[0].children[0].children[0].checked) {
+            boxChecked = false;
+            row.children[0].children[0].children[0].checked = true;
+        }
+        row.setAttribute("style", "--bs-table-bg: #d5d5d5");
+    }
+
+    if (boxChecked) {
+        for (let row of tableRows) {
+            row.children[0].children[0].children[0].checked = false;
+            row.setAttribute("style", "--bs-table-bg:");
+        }
     }
 
 }
@@ -546,39 +591,98 @@ function recurringClick(ele) {
 
 // --------------------------------------------------------------------------------------------------------------
 
-let sort = 0;
-let prop = "";
+let sortWatch = [
+    { name: "recurring", sort: 0 },
+    { name: "date", sort: 0 },
+    { name: "invoiceNo", sort: 0 },
+    { name: "amount", sort: 0 },
+    { name: "dueDate", sort: 0 },
+    { name: "status", sort: 0 },
+];
+
+function compareFn(a, b) {
+    if (a < b) {
+        return -1;
+    } else if (a > b) {
+        return 1;
+    }
+    // a must be equal to b
+    return 0;
+}
 
 function tableColSort(ele) {
 
-    let tempSortArray = JSON.parse(JSON.stringify(displayArray));
-
     let attri = ele.parentElement.children[0].innerText.toLowerCase();
 
-    if (attri != prop) {
-        tempSortArray.sort((a, b) => b[attri]-a[attri]);
-        prop = attri;
-        sort = 1;
+    let up_arrow = ele.children[0];
+    let down_arrow = ele.children[1];
 
+    if (attri == "invoice no.") { attri = "invoiceNo"; } else if (attri == "due date") { attri = "dueDate"; }
+
+    console.log("attri:", attri);
+
+    console.log("attri prop check : ", row[attri]);
+
+    let index = sortWatch.findIndex((obj) => obj.name == attri);
+
+    if (sortWatch[index].sort == 0) {
+        if (sortWatch[index].name == "date" || sortWatch[index].name == "dueDate") {
+            displayArray.sort((a, b) => compareFn(dateConvert(b[attri]).getTime(), dateConvert(a[attri]).getTime()));
+        } else {
+            displayArray.sort((a, b) => compareFn(b[attri], a[attri]));
+        }
+
+        up_arrow.classList.add("d-none");
+        down_arrow.classList.add("mt-2");
+
+        sortWatch[index].sort = 1;
+    }
+    else if (sortWatch[index].sort == 1) {
+        if (sortWatch[index].name == "date" || sortWatch[index].name == "dueDate") {
+            displayArray.sort((a, b) => compareFn(dateConvert(a[attri]).getTime(), dateConvert(b[attri]).getTime()));
+        } else {
+            displayArray.sort((a, b) => compareFn(a[attri], b[attri]));
+        }
+
+        up_arrow.classList.remove("d-none");
+        down_arrow.classList.remove("mt-2");
+
+        up_arrow.classList.add("mt-1");
+        down_arrow.classList.add("d-none");
+
+        sortWatch[index].sort = 2;
     } else {
-        if (sort == 0) {
 
-            tempSortArray.sort((a, b) => b[attri] - a[attri]);
-            sort = 1;
-        }
-        else if (sort == 1) {
-        
-            tempSortArray.sort((a, b) => a[attri] - b[attri]);
-            sort = 2;
-        } else if (sort == 2) {
-            
-            tempSortArray = JSON.parse(JSON.stringify(displayArray));
-            sort = 0;
-        }
+        displayArray = JSON.parse(JSON.stringify(filterTable));
+
+        up_arrow.classList.remove("mt-1");
+        down_arrow.classList.remove("d-none");
+
+        sortWatch[index].sort = 0;
     }
 
-    displayRows(tempSortArray);
+    console.log("displayArray check : ", displayArray);
 
+    displayRows();
+
+
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
+function displayNext() {
+    if ((currPage * pageSize) < table_contents.length) {
+        currPage++;
+    }
+    displayRows();
+}
+
+function displayPrevious() {
+    if (currPage > 1) {
+        currPage--;
+    }
+    displayRows();
 }
 
 // --------------------------------------------------------------------------------------------------------------
