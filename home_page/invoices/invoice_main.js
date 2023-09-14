@@ -177,7 +177,7 @@ function displayRows(table_contents) {
         if (row_obj.recurring == true) {
             recur_sign = `
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="25" height="25"
-            viewBox="0 0 30 30">
+            viewBox="0 0 30 30" id="recur-sign">
             <path
                 d="M 15 3 C 12.031398 3 9.3028202 4.0834384 7.2070312 5.875 A 1.0001 1.0001 0 1 0 8.5058594 7.3945312 C 10.25407 5.9000929 12.516602 5 15 5 C 20.19656 5 24.450989 8.9379267 24.951172 14 L 22 14 L 26 20 L 30 14 L 26.949219 14 C 26.437925 7.8516588 21.277839 3 15 3 z M 4 10 L 0 16 L 3.0507812 16 C 3.562075 22.148341 8.7221607 27 15 27 C 17.968602 27 20.69718 25.916562 22.792969 24.125 A 1.0001 1.0001 0 1 0 21.494141 22.605469 C 19.74593 24.099907 17.483398 25 15 25 C 9.80344 25 5.5490109 21.062074 5.0488281 16 L 8 16 L 4 10 z">
             </path>
@@ -186,7 +186,7 @@ function displayRows(table_contents) {
         } else {
             recur_sign = `
         <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-            class="bi bi-slash-circle-fill" viewBox="0 0 16 16">
+            class="bi bi-slash-circle-fill" viewBox="0 0 16 16" id="no-recur-sign">
             <path
                 d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.646-2.646a.5.5 0 0 0-.708-.708l-6 6a.5.5 0 0 0 .708.708l6-6z" />
         </svg>
@@ -327,9 +327,11 @@ function sidebar_open_close(ele) {
 
 // --------------------------------------------------------------------------------------------------------------
 
-let filterTable = JSON.parse(JSON.stringify(table_contents));
 let statusTable = table_contents.filter((obj) => obj.status == "Not Due");
 let dateTable = JSON.parse(JSON.stringify(table_contents));
+let filterTable = JSON.parse(JSON.stringify(statusTable));
+
+let displayArray = JSON.parse(JSON.stringify(filterTable));
 
 function compareArrays(sObj) {
     for (let dObj of dateTable) {
@@ -342,9 +344,7 @@ function compareArrays(sObj) {
 }
 
 // Display the default table
-displayRows(statusTable);
-
-filterTable = statusTable.filter(compareArrays);
+displayRows(displayArray);
 
 // --------------------------------------------------------------------------------------------------------------
 
@@ -372,7 +372,8 @@ function statusChange() {
         case 3:
 
             statusTable = JSON.parse(JSON.stringify(table_contents));
-            displayRows(table_contents);
+            displayArray = table_contents
+            displayRows(displayArray);
             break;
 
         default:
@@ -390,7 +391,9 @@ function statusChange() {
 
     console.log("Status table status check : ", statusTable);
 
-    displayRows(filterTable);
+    displayArray = filterTable
+
+    displayRows(displayArray);
 
 }
 
@@ -422,7 +425,8 @@ function dateChange() {
         case 0:
 
             dateTable = JSON.parse(JSON.stringify(table_contents));
-            displayRows(table_contents);
+            displayArray = table_contents
+            displayRows(displayArray);
             break;
 
         case 1:
@@ -476,7 +480,9 @@ function dateChange() {
 
     console.log("date table status check : ", dateTable);
 
-    displayRows(filterTable);
+    displayArray = filterTable
+
+    displayRows(displayArray);
 
 }
 
@@ -490,9 +496,9 @@ checkSearch.addEventListener("keyup", function () {
 
     let searchTableContents = JSON.parse(JSON.stringify(table_contents));
 
-    let resultTable = searchTableContents.filter((obj) => ( (JSON.stringify(obj.date).toLowerCase().includes(searchTerm)) || 
-    (JSON.stringify(obj.invoiceNo).toLowerCase().includes(searchTerm)) || (JSON.stringify(obj.amount).toLowerCase().includes(searchTerm)) ||
-    (JSON.stringify(obj.dueDate).toLowerCase().includes(searchTerm)) || (JSON.stringify(obj.status).toLowerCase().includes(searchTerm)) ));
+    let resultTable = searchTableContents.filter((obj) => ((JSON.stringify(obj.date).toLowerCase().includes(searchTerm)) ||
+        (JSON.stringify(obj.invoiceNo).toLowerCase().includes(searchTerm)) || (JSON.stringify(obj.amount).toLowerCase().includes(searchTerm)) ||
+        (JSON.stringify(obj.dueDate).toLowerCase().includes(searchTerm)) || (JSON.stringify(obj.status).toLowerCase().includes(searchTerm))));
 
     console.log("filter table pre check : ", searchTableContents);
 
@@ -502,8 +508,77 @@ checkSearch.addEventListener("keyup", function () {
 
     console.log("result table status check : ", resultTable);
 
-    displayRows(searchTableContents);
+    displayArray = searchTableContents;
+
+    displayRows(displayArray);
 
 })
+
+// --------------------------------------------------------------------------------------------------------------
+
+function selectCheckboxClick(ele) {
+
+    let tableRows = document.getElementById("invoice-table-body").children;
+
+    console.log("table check : ", tableRows[0]);
+
+    for (let i = 0; i < tableRows.length; i++) {
+        tableRows[i].children[0].children[0].children[0].toggleAttribute("checked");
+        console.log("table row check : ", tableRows[i].children[0].children[0].children[0]);
+    }
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
+function recurringClick(ele) {
+
+    // let tableRows = document.getElementById("invoice-table-body").children;
+
+    // console.log("table check : ", tableRows[0].children[1].children[0].children[0].id);
+
+    // for (let i = 0; i < tableRows.length; i++) {
+    //     tableRows[0].children[1].children[0].children[0];
+    //     console.log("table row check : ", tableRows[i].children[0].children[0].children[0]);
+    // }
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
+let sort = 0;
+let prop = "";
+
+function tableColSort(ele) {
+
+    let tempSortArray = JSON.parse(JSON.stringify(displayArray));
+
+    let attri = ele.parentElement.children[0].innerText.toLowerCase();
+
+    if (attri != prop) {
+        tempSortArray.sort((a, b) => b[attri]-a[attri]);
+        prop = attri;
+        sort = 1;
+
+    } else {
+        if (sort == 0) {
+
+            tempSortArray.sort((a, b) => b[attri] - a[attri]);
+            sort = 1;
+        }
+        else if (sort == 1) {
+        
+            tempSortArray.sort((a, b) => a[attri] - b[attri]);
+            sort = 2;
+        } else if (sort == 2) {
+            
+            tempSortArray = JSON.parse(JSON.stringify(displayArray));
+            sort = 0;
+        }
+    }
+
+    displayRows(tempSortArray);
+
+}
 
 // --------------------------------------------------------------------------------------------------------------
