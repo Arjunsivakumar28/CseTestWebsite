@@ -176,11 +176,15 @@ function displayRows() {
 
     let Html_rows = "";
 
-    for (let idx in displayArray) {
+    let idx = 0;
+
+    for (idx in displayArray) {
 
         let start = (currPage - 1) * pageSize;
 
         let end = currPage * pageSize;
+
+        console.log("start : ", start, "\n end : ", end, "\n currrent page: ", currPage, "\n page size : ", pageSize);
 
         if (idx >= start && idx < end) {
 
@@ -299,6 +303,44 @@ function displayRows() {
 
         document.getElementById("invoice-table-body").innerHTML = Html_rows;
     }
+
+    if (idx == 0) {
+        let Html_rows = `
+        <tr class="align-middle">
+            <td>
+                
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2">
+                </div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2"></div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2"></div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2"></div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2"></div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2">
+                    
+                    <span class="ms-2"></span>
+                </div>
+            </td>
+            <td>
+                <div class="d-flex justify-content-center align-items-center my-2">
+                    
+                </div>
+            </td>
+        </tr>
+        `
+        document.getElementById("invoice-table-body").innerHTML = Html_rows;
+    }
 }
 
 // --------------------------------------------------------------------------------------------------------------
@@ -360,6 +402,8 @@ displayRows();
 // --------------------------------------------------------------------------------------------------------------
 
 function statusChange(ele) {
+    currPage = 1;
+    pageSize = 4;
 
     let select = document.getElementById("invoice-type-filter");
 
@@ -432,6 +476,9 @@ function dateConvert(dateString) {
 // --------------------------------------------------------------------------------------------------------------
 
 function dateChange() {
+
+    currPage = 1;
+    pageSize = 4;
 
     let dateRange = document.getElementById("invoice-date-filter");
 
@@ -510,6 +557,9 @@ function dateChange() {
 let checkSearch = document.getElementById("table-search");
 
 checkSearch.addEventListener("keyup", function () {
+
+    currPage = 1;
+    pageSize = 4;
 
     let searchTerm = checkSearch.value.toLowerCase();
 
@@ -672,17 +722,22 @@ function tableColSort(ele) {
 // --------------------------------------------------------------------------------------------------------------
 
 function displayNext() {
-    if ((currPage * pageSize) < table_contents.length) {
+    if ((currPage * pageSize) < displayArray.length) {
         currPage++;
+        displayRows();
+    } else {
+        alert("Final Page Reached!");
     }
-    displayRows();
+
 }
 
 function displayPrevious() {
     if (currPage > 1) {
         currPage--;
+        displayRows();
+    } else {
+        alert("Start Page Reached!");
     }
-    displayRows();
 }
 
 // --------------------------------------------------------------------------------------------------------------
