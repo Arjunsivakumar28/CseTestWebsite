@@ -172,11 +172,20 @@ let displayArray = JSON.parse(JSON.stringify(filterTable));
 let currPage = 1;
 let pageSize = 4;
 
+let page_num = document.getElementById("page-number");
+let final_page = Math.ceil(displayArray.length / pageSize);
+
 function displayRows() {
+
+    final_page = Math.ceil(displayArray.length / pageSize);
 
     let Html_rows = "";
 
     let idx = 0;
+
+    let sum_val = document.getElementById("amount-sum");
+
+    sum_val.innerText = displayArray.reduce((accum, currVal) => accum + currVal.amount, 0);
 
     for (idx in displayArray) {
 
@@ -253,94 +262,350 @@ function displayRows() {
                 pay_btn = "";
             } else {
                 pay_btn = `
-            <button class=" btn btn-outline-success">Pay</button>
+            <button class="btn btn-outline-success z-2">Pay</button>
             `;
             }
 
             Html_rows += `
-        <tr class="align-middle">
-            <td>
-                <div class="d-flex justify-content-center align-items-center my-2"><input
-                        class="form-check-input" type="checkbox" value="" id="row-check"
-                        aria-label="row-check" style="padding: .8rem;" onchange="checkboxAction(this)"></div>
-            </td>
-            <td>
-                <div class="d-flex justify-content-center align-items-center my-2">` + recur_sign + `
+        <div class="invoice-table-row row align-items-center position-relative border-bottom m-0" id="invoice-table-row`+ idx + `">
+            <div class="col">
+                <div class="d-flex justify-content-center align-items-center my-2">
+                    <input class="form-check-input z-2" type="checkbox" value="" id="row-check"
+                    aria-label="row-check" style="padding: .8rem;" onchange="checkboxAction(this)">
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
+                <div class="d-flex justify-content-center align-items-center my-2">` + recur_sign + `</div>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">` + displayArray[idx].date + `</div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2"> INV`+ displayArray[idx].invoiceNo + `</div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">$`+ displayArray[idx].amount + `</div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">`+ displayArray[idx].dueDate + `</div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">
                     `+ status_sign + `
                     <span class="ms-2">`+ displayArray[idx].status + `</span>
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">
-                    <a class="me-2" href="../../docs/Miner_Body Rituals Among the Nacirema.pdf">
+                    <a id="collapse-row`+ idx + `" class="stretched-link z-1" role="button" data-bs-toggle="collapse" 
+                    href="#more-details-collapse`+ idx + `" aria-expanded="false" aria-controls="more-details-collapse` + idx + `"
+                    onclick="collapseInvoiceAction(this)"></a>
+                    <a class="me-2 z-2" href="../../docs/Miner_Body Rituals Among the Nacirema.pdf">
                         pdf
                     </a>
-                    <a class="me-2" href="#">
+                    <a class="me-2 z-2" href="#">
                         view
                     </a>
                     `+ pay_btn + `
                 </div>
-            </td>
-        </tr>
+            </div>
+        </div>
+        
+        <div class="collapse" id="more-details-collapse`+ idx + `">
+            <div class="invoice-body rounded overflow-auto" style="background-color: cornsilk; height: 400px;">
+                <div class="pe-3 pt-2 top_buttons d-flex justify-content-end align-items-center">
+                    
+                    <button href="#more-details-collapse`+ idx + `" type="button" class="btn btn-primary me-3" aria-label="open-popup" target="popup"
+                    onclick="window.open('#more-details-collapse`+ idx + `', 'name', 'width=600, height=1000')">Open Side</button>
+                    
+                    <button type="button" class="btn-close" aria-label="close-invoice" 
+                        onclick="this.parentElement.parentElement.parentElement.classList.toggle('show')">
+                    </button>
+                </div>
+                <div class="main_r row mt-3">
+                    <div class="col-4 d-flex justify-content-center mb-3">
+                        <button id="collapse-invoice-pay-btn" class="btn btn-outline-success my-3 px-5">
+                            <h3>Pay Now</h3>
+                        </button>
+                    </div>
+                    <div class="col-8 d-flex">
+                        <div class="d-flex flex-column justify-content-start ms-2 mb-3">
+                            <h6 class="sub-title fw-lighter">From: </h6>
+                            <h6 class="amount"><b>Computer Solutions East, Inc.</b><br>
+                                481 Main Street, Suite 100
+                                New Rochelle, NY 10801<br>
+                                +1 9148934076<br>
+                                bills@computersolutionseast.com<br>
+                                www.computersolutionseast.com</h6>
+                        </div>
+                        <div class="d-flex flex-column justify-content-start ms-2 mb-3">
+                            <h6 class="sub-title fw-lighter">Client: </h6>
+                            <h6 class="amount"><b>SkyTerra Technologies, LLC</b><br>
+                                402 Amherst Street Suite 303
+                                Nashua, NH 03063 US</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="main_r row mb-3">
+                    <div class="col-4">
+                        <div class="d-flex flex-column justify-content-center mb-3">
+                            <h6 class="sub-title fw-lighter text-center">Invoice dates</h6>
+                            <h6 class="amount text-center">11/12/2023 - 12/12/2023</h6>
+                        </div>
+                        <div class="d-flex flex-column">
+                            <h6 class="sub-title fw-lighter text-center">Invoice number</h6>
+                            <h6 class="amount text-center">#PD1224</h6>
+                        </div>
+
+                    </div>
+                    <div class="col-8 d-flex flex-column justify-content-center">
+
+                        <h6 class="sub-title fw-lighter text-left"><b>Description: </b>
+                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi placeat
+                            doloribus laboriosam eos sit quisquam deserunt, veniam ipsam enim, quae
+                            illum fugiat! Recusandae ducimus expedita, iusto officiis fugit
+                            asperiores mollitia!
+                        </h6>
+
+                    </div>
+                </div>
+                <div class="main_row row mb-3 px-5">
+                    <div class="col-12">
+                        <h3>Price Description</h3>
+                    </div>
+                </div>
+                <hr class="mx-5">
+                <div class="main_row row mb-3 px-5">
+                    <div class="col-12">
+                        <h5>Variable Cost Items</h5>
+                    </div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0 fw-lighter">Variable Cost Items</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Quantity
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Rate
+                    </div>
+                    <div class="due-date col d-flex justify-content-center fw-lighter">Amount</div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0">Support</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center">6
+                    </div>
+                    <div class="due-date col d-flex justify-content-center">$2,500</div>
+                    <div class="invoice-amount col d-flex justify-content-center">$15,000</div>
+                </div>
+                <div class="main_row row mb-3 px-5 mt-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0"></h6>
+                    </div>
+                    <div class="due-date col d-flex justify-content-center"></div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Subtotal
+                    </div>
+                    <div
+                        class="invoice-amount col d-flex justify-content-center border-top border-bottom border-2">
+                        $15,000</div>
+                </div>
+                <hr class="mx-5">
+                <div class="main_row row mb-3 px-5">
+                    <div class="col-12">
+                        <h5>Fixed Cost Items</h5>
+                    </div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0 fw-lighter">Fixed Cost Items</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">
+                    </div>
+                    <div class="due-date col d-flex justify-content-center fw-lighter">Amount</div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0">abc</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center">
+                    </div>
+                    <div class="due-date col d-flex justify-content-center"></div>
+                    <div class="invoice-amount col d-flex justify-content-center">$5,000</div>
+                </div>
+                <div class="main_row row mb-3 px-5 mt-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0"></h6>
+                    </div>
+                    <div class="due-date col d-flex justify-content-center"></div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Subtotal
+                    </div>
+                    <div
+                        class="invoice-amount col d-flex justify-content-center border-top border-bottom border-2">
+                        $5,000</div>
+                </div>
+                <hr class="mx-5">
+                <div class="main_row row mb-3 px-5">
+                    <div class="col-12">
+                        <h5>Taxes and Discounts</h5>
+                    </div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0 fw-lighter">Tax / Discounts</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Percentage
+                    </div>
+                    <div class="due-date col d-flex justify-content-center fw-lighter">Amount</div>
+                </div>
+                <div class="main_row row mb-3 px-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0">IVA</h6>
+                    </div>
+                    <div class="download-pdf col d-flex justify-content-center">
+                    </div>
+                    <div class="due-date col d-flex justify-content-center">10%</div>
+                    <div class="invoice-amount col d-flex justify-content-center">$2,000</div>
+                </div>
+                <div class="main_row row mb-3 px-5 mt-5 w-100">
+                    <div class="col-5">
+                        <h6 class="ms-5 mb-0"></h6>
+                    </div>
+                    <div class="due-date col d-flex justify-content-center"></div>
+                    <div class="download-pdf col d-flex justify-content-center fw-lighter">Subtotal
+                    </div>
+                    <div
+                        class="invoice-amount col d-flex justify-content-center border-top border-bottom border-2">
+                        $2,000</div>
+                </div>
+                <hr class="mx-5">
+                <div class="main_row row mb-3 px-5">
+                    <div class="col-12">
+                        <h3>Total Invoiced</h3>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="main_row row mb-3 px-5 w-100">
+                        <div class="col-5">
+                            <h6 class="ms-5 mb-0"></h6>
+                        </div>
+                        <div class="due-date col d-flex justify-content-center"></div>
+                        <div class="download-pdf col d-flex justify-content-center fw-lighter">Total
+                            Invoiced</div>
+                        <div class="invoice-amount col d-flex justify-content-center">
+                            $22,000</div>
+                    </div>
+                    <div class="vr"></div>
+                </div>
+                <div class="d-flex">
+                    <div class="main_row row mb-3 px-5 mt-3 w-100">
+                        <div class="col-5">
+                            <h6 class="ms-5 mb-0"></h6>
+                        </div>
+                        <div class="due-date col d-flex justify-content-center"></div>
+                        <div class="download-pdf col d-flex justify-content-center fw-lighter">Total
+                            Paid</div>
+                        <div class="invoice-amount col d-flex justify-content-center">$20,000</div>
+                    </div>
+                    <div class="vr mb-2 mt-2"></div>
+                </div>
+                <div class="d-flex">
+                    <div class="main_row row mt-3 w-100">
+                        <div class="col-5">
+                            <h6 class="ms-5 mb-0"></h6>
+                        </div>
+                        <div class="due-date col d-flex justify-content-center"></div>
+                        <div class="download-pdf col d-flex justify-content-center fw-lighter">Remaining
+                            Balance</div>
+                        <div class="invoice-amount col d-flex justify-content-center">
+                            $2,000</div>
+                    </div>
+                    <div class="vr"></div>
+                </div>
+            </div>
+        </div>
+        
         `
         }
 
         document.getElementById("invoice-table-body").innerHTML = Html_rows;
+
     }
 
-    if (idx == 0) {
+    if (displayArray.length == 0) {
+        console.log("0 idx>>>>>")
         let Html_rows = `
-        <tr class="align-middle">
-            <td>
+        <div class="row align-items-center">
+            <div class="col">
                 
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2"></div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2"></div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2"></div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2"></div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">
                     
                     <span class="ms-2"></span>
                 </div>
-            </td>
-            <td>
+            </div>
+            <div class="col">
                 <div class="d-flex justify-content-center align-items-center my-2">
                     
                 </div>
-            </td>
-        </tr>
+            </div>
+        </div>
         `
         document.getElementById("invoice-table-body").innerHTML = Html_rows;
     }
+
+    page_num.innerText = currPage + " / " + final_page;
+
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
+function collapseInvoiceAction(ele) {
+    // for (let inv of displayArray) {
+    //     if (inv.status == "Paid") {
+    //         ele.setAttribute("disabled", "");
+    //         ele.children[0].innerText = "Paid";
+    //     } else {
+    //         this.removeAttribute("disabled");
+    //         ele.children[0].innerText = "Pay Now";
+    //     }
+    // }
+
+    console.log("ele check : ", ele.parentElement.parentElement.parentElement.nextSibling.nextSibling.children[0].children[1].children[0].children[0]);
+    console.log("ele check : ", ele.parentElement.parentElement.previousSibling.previousSibling.children[0].children[1].innerText);
+
+    let status = ele.parentElement.parentElement.previousSibling.previousSibling.children[0].children[1].innerText;
+    let collapse_invoice_btn = ele.parentElement.parentElement.parentElement.nextSibling.nextSibling.children[0].children[1].children[0].children[0];
+
+    if (status == "Paid") {
+        collapse_invoice_btn.setAttribute("disabled", "");
+        collapse_invoice_btn.children[0].innerText = "Paid";
+    } else {
+        collapse_invoice_btn.removeAttribute("disabled");
+        collapse_invoice_btn.children[0].innerText = "Pay Now";
+    }
+
 }
 
 // --------------------------------------------------------------------------------------------------------------
@@ -588,9 +853,9 @@ checkSearch.addEventListener("keyup", function () {
 function checkboxAction(ele) {
 
     if (ele.checked) {
-        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg: #d5d5d5");
+        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg: #d5d5d5; background-color: #d5d5d5");
     } else {
-        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg:");
+        ele.parentElement.parentElement.parentElement.setAttribute("style", "--bs-table-bg:; background-color:");
     }
 
 }
@@ -602,23 +867,21 @@ function selectCheckboxClick(ele) {
 
     let tableRows = document.getElementById("invoice-table-body").children;
 
-    console.log("table check : ", tableRows[0]);
-
     let boxChecked = true;
 
-    for (let row of tableRows) {
+    for (let i = 0; i < tableRows.length; i += 2) {
 
-        if (!row.children[0].children[0].children[0].checked) {
+        if (!tableRows[i].children[0].children[0].children[0].checked) {
             boxChecked = false;
-            row.children[0].children[0].children[0].checked = true;
+            tableRows[i].children[0].children[0].children[0].checked = true;
         }
-        row.setAttribute("style", "--bs-table-bg: #d5d5d5");
+        tableRows[i].setAttribute("style", "--bs-table-bg: #d5d5d5; background-color: #d5d5d5");
     }
 
     if (boxChecked) {
-        for (let row of tableRows) {
-            row.children[0].children[0].children[0].checked = false;
-            row.setAttribute("style", "--bs-table-bg:");
+        for (let i = 0; i < tableRows.length; i += 2) {
+            tableRows[i].children[0].children[0].children[0].checked = false;
+            tableRows[i].setAttribute("style", "--bs-table-bg:; background-color:");
         }
     }
 
@@ -628,14 +891,7 @@ function selectCheckboxClick(ele) {
 
 function recurringClick(ele) {
 
-    // let tableRows = document.getElementById("invoice-table-body").children;
-
-    // console.log("table check : ", tableRows[0].children[1].children[0].children[0].id);
-
-    // for (let i = 0; i < tableRows.length; i++) {
-    //     tableRows[0].children[1].children[0].children[0];
-    //     console.log("table row check : ", tableRows[i].children[0].children[0].children[0]);
-    // }
+    console.log("test");
 
 }
 
@@ -722,22 +978,34 @@ function tableColSort(ele) {
 // --------------------------------------------------------------------------------------------------------------
 
 function displayNext() {
+
     if ((currPage * pageSize) < displayArray.length) {
         currPage++;
-        displayRows();
-    } else {
-        alert("Final Page Reached!");
     }
 
+    page_num.innerText = currPage + " / " + final_page;
+    displayRows();
 }
 
 function displayPrevious() {
     if (currPage > 1) {
         currPage--;
-        displayRows();
-    } else {
-        alert("Start Page Reached!");
     }
+
+    page_num.innerText = currPage + " / " + final_page;
+    displayRows();
+}
+
+function displayFirst() {
+    currPage = 1;
+    page_num.innerText = currPage + " / " + final_page;
+    displayRows();
+}
+
+function displayLast() {
+    currPage = final_page;
+    page_num.innerText = currPage + " / " + final_page;
+    displayRows();
 }
 
 // --------------------------------------------------------------------------------------------------------------

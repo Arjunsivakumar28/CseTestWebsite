@@ -28,3 +28,8 @@ h1 {
     transition: all .2s;
 }
 
+.invoice-table-row:hover {
+    --bs-table-bg: #d5d5d5;
+    background-color: #d5d5d5;
+    transition: var(--bs-table-bg) .2s, backgroundColor .2s;
+}
