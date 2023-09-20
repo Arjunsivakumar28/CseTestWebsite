@@ -332,17 +332,17 @@ function displayRows() {
                         <div class="d-flex flex-column justify-content-start ms-2 mb-3">
                             <h6 class="sub-title fw-lighter">From: </h6>
                             <h6 class="amount"><b>Computer Solutions East, Inc.</b><br>
-                                481 Main Street, Suite 100
-                                New Rochelle, NY 10801<br>
+                                481 Main Street, Suite 100 <br>
+                                New Rochelle, NY 10801 <br>
                                 +1 9148934076<br>
                                 bills@computersolutionseast.com<br>
                                 www.computersolutionseast.com</h6>
                         </div>
-                        <div class="d-flex flex-column justify-content-start ms-2 mb-3">
+                        <div class="d-flex flex-column justify-content-start ms-5 mb-3">
                             <h6 class="sub-title fw-lighter">Client: </h6>
-                            <h6 class="amount"><b>SkyTerra Technologies, LLC</b><br>
-                                402 Amherst Street Suite 303
-                                Nashua, NH 03063 US</h6>
+                            <h6 class="amount"><b>Client.Inc Technologies, LLC</b><br>
+                                402 abc Street Suite 909
+                                Chicago, IL 60101 US</h6>
                         </div>
                     </div>
                 </div>
